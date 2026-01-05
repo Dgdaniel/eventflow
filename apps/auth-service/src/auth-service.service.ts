@@ -1,4 +1,11 @@
-import { ConflictException, Inject, Injectable, NotFoundException, OnModuleInit, UnauthorizedException } from '@nestjs/common';
+import {
+  ConflictException,
+  Inject,
+  Injectable,
+  NotFoundException,
+  OnModuleInit,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { KAFKA_SERVICE, KafkaService } from '@app/kafka';
 import { ClientKafka, ClientKafkaProxy } from '@nestjs/microservices';
 import { DatabaseService, users } from '@app/database';
@@ -14,10 +21,10 @@ export class AuthServiceService implements OnModuleInit {
     @Inject(KAFKA_SERVICE) private readonly KafkaClient: ClientKafka,
     private readonly dbService: DatabaseService,
     private readonly jwtService: JwtService,
-  ) { }
+  ) {}
 
   onModuleInit() {
-    this.KafkaClient.connect()
+    this.KafkaClient.connect();
   }
 
   async registerUser(email: string, password: string, name: string) {
@@ -45,12 +52,12 @@ export class AuthServiceService implements OnModuleInit {
     this.KafkaClient.emit(KAFKA_TOPICS.USER_REGISTERED, {
       userId: user.id,
       email: user.email,
-    })
+    });
 
     return {
       message: 'User registered successfully',
       user,
-    }
+    };
   }
 
   async login(email: string, password: string) {
@@ -77,7 +84,7 @@ export class AuthServiceService implements OnModuleInit {
     this.KafkaClient.emit(KAFKA_TOPICS.USER_LOGIN, {
       userId: user.id,
       timestamp: new Date().toISOString(),
-    })
+    });
 
     return {
       access_token: token,
@@ -85,11 +92,10 @@ export class AuthServiceService implements OnModuleInit {
         id: user.id,
         email: user.email,
         name: user.name,
-        role: user.role
+        role: user.role,
       },
       message: 'Login successful',
-    }
-
+    };
   }
 
   async getProfile(userId: string) {
@@ -108,10 +114,6 @@ export class AuthServiceService implements OnModuleInit {
       throw new NotFoundException('User not found');
     }
 
-    return user
+    return user;
   }
-
-
-
 }
-

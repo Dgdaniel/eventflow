@@ -10,7 +10,8 @@ export class DatabaseService implements OnModuleDestroy {
   public db: NodePgDatabase<typeof schema>;
 
   constructor() {
-    const connectionString = 'postgresql://eventflowapp:eventflowapp@localhost:6000/eventflowapp';
+    const connectionString =
+      'postgresql://eventflowapp:eventflowapp@localhost:12500/eventflowapp';
     this.pool = new Pool({ connectionString });
     this.db = drizzle(this.pool, { schema });
     console.log('DatabaseService connected');

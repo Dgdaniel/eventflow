@@ -4,7 +4,7 @@ services:
     container_name: zookeeper
     platform: linux/amd64
     ports:
-      - "2181:2181"
+      - "21819:2181"
     volumes:
       - zookeeper-data:/opt/zookeeper-3.4.13/data
       - zookeeper-log:/opt/zookeeper-3.4.13/logs
@@ -16,12 +16,12 @@ services:
     container_name: kafka
     platform: linux/amd64
     ports:
-      - "9094:9092"
+      - "9097:9092"
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_LISTENERS: INSIDE://0.0.0.0:9093,OUTSIDE://0.0.0.0:9092
-      KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka:9093,OUTSIDE://localhost:9094
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka:9093,OUTSIDE://localhost:9097
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
@@ -60,7 +60,7 @@ services:
     image: postgres:17-alpine
     container_name: eventflowapp-postgres
     ports:
-      - "6000:5432"
+      - "12500:5432"
     environment:
       POSTGRES_USER: eventflowapp
       POSTGRES_PASSWORD: eventflowapp
@@ -79,7 +79,7 @@ services:
     image: redis:7-alpine
     container_name: eventflowapp-redis
     ports:
-      - "7000:6379"
+      - "10000:6379"
     volumes:
       - redis-data:/data
     networks:
@@ -94,8 +94,8 @@ services:
     image: mailhog/mailhog:latest
     container_name: eventflowapp-mailhog
     ports:
-      - "1025:1025"
-      - "8025:8025"
+      - "10250:1025"
+      - "10251:8025"
     volumes:
       - mailhog-data:/data
     networks:
