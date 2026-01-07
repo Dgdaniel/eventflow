@@ -14,7 +14,8 @@ import { PassportModule } from '@nestjs/passport';
       secret: process.env.JWT_SECRET || 'secretKey',
       signOptions: { expiresIn: '1d' },
     }),
-    AuthModule, EventModule],
+    AuthModule, 
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
