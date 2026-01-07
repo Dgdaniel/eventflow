@@ -1,12 +1,44 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body, Headers, Put, Delete, ParseUUIDPipe } from '@nestjs/common';
 import { EventsServiceService } from './events-service.service';
+import { CreateEventDto, UpdateEventDto } from '@app/common';
 
 @Controller()
 export class EventsServiceController {
-  constructor(private readonly eventsServiceService: EventsServiceService) {}
+  constructor(private readonly eventsServiceService: EventsServiceService) { }
+
+
+  @Post()
+  create(@Body() createEventDto: CreateEventDto,
+    @Headers('x-user-id') userId: string) {
+    return this.eventsServiceService.createEvent(createEventDto, userId);
+  }
 
   @Get()
-  getHello(): string {
-    return this.eventsServiceService.getHello();
+  findAll() {
+    return this.eventsServiceService.findAll();
+  }
+
+  @Get('my-events')
+  findMyEvents(@Headers('x-user-id') userId: string) {
+    return this.eventsServiceService.findMyEvents(userId);
+  }
+
+  @Get(':id')
+  findOne(@Param('id', ParseUUIDPipe) id: string) {
+    return this.eventsServiceService.findOne(id);
+  }
+
+  @Put(':id')
+  update(@Param('id', ParseUUIDPipe) id: string, @Body() updateEventDto: UpdateEventDto,
+    @Headers('x-user-id') userId: string,
+    @Headers('x-user-role') userRole: string) {
+    return this.eventsServiceService.update(id, updateEventDto, userId, userRole);
+  }
+
+  @Post(':id/publish')
+  publish(@Param('id', ParseUUIDPipe) id: string,
+    @Headers('x-user-id') userId: string,
+    @Headers('x-user-role') userRole: string) {
+    return this.eventsServiceService.publishEvent(id, userId, userRole);
   }
 }

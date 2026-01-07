@@ -1,0 +1,102 @@
+import { SERVICE_PORT } from "@app/common";
+import { HttpService } from "@nestjs/axios";
+import { HttpException } from "@nestjs/common";
+import { firstValueFrom } from "rxjs";
+
+export class EventService {
+    private readonly eventServiceUrl = `http://localhost:${SERVICE_PORT.EVENTS_SERVICE}`;
+    constructor(private readonly httpService: HttpService) { }
+
+    async createEvent(data: Object, userId: string, userRole: string) {
+        try {
+            const response = await firstValueFrom(
+                this.httpService.post(`${this.eventServiceUrl}/events`,data, {
+                    headers: {
+                        'x-user-id': userId,
+                        'x-user-role': userRole,
+                    },
+                }),
+            );
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    async findAllEvents() {
+        try {
+            const response = await firstValueFrom(
+                this.httpService.get(`${this.eventServiceUrl}/events`),
+            );
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    async findMyEvents(userId: string) {
+        try {
+            const response = await firstValueFrom(
+                this.httpService.get(`${this.eventServiceUrl}/events/my-events`, {
+                    headers: {
+                        'x-user-id': userId,
+                    },
+                }),
+            );
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    async findOneEvent(id: string) {
+        try {
+            const response = await firstValueFrom(
+                this.httpService.get(`${this.eventServiceUrl}/events/${id}`),
+            );
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    async updateEvent(id: string, data: Object, userId: string, userRole: string) {
+        try {
+            const response = await firstValueFrom(
+                this.httpService.put(`${this.eventServiceUrl}/events/${id}`, data, {
+                    headers: {
+                        'x-user-id': userId,
+                        'x-user-role': userRole,
+                    },
+                }),
+            );
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    async publishEvent(id: string, userId: string, userRole: string) {
+        try {
+            const response = await firstValueFrom(
+                this.httpService.post(`${this.eventServiceUrl}/events/${id}/publish`, {}, {
+                    headers: {
+                        'x-user-id': userId,
+                        'x-user-role': userRole,
+                    },
+                }),
+            );
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    private handleError(error: unknown) {
+        const err = error as { response?: { data: string | object; status: number } };
+        if (err.response) {
+            throw new HttpException(err.response.data, err.response.status);
+        }
+        throw new HttpException("Something went wrong", 500);
+    }
+}
