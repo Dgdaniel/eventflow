@@ -5,12 +5,12 @@ import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  // app.useGlobalPipes(new
-  //   ValidationPipe({
-  //     whitelist: true,
-  //     forbidNonWhitelisted: true,
-  //     transform: true,
-  //   }));
+  app.useGlobalPipes(new
+    ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }));
   await app.listen(SERVICE_PORT.API_GATEWAY);
   console.log(`Api gateway is running on port ${SERVICE_PORT.API_GATEWAY}`);
 }

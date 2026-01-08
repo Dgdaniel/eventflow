@@ -7,7 +7,7 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class EventService {
   private readonly eventServiceUrl = `http://localhost:${SERVICE_PORT.EVENTS_SERVICE}`;
-  constructor(private readonly httpService: HttpService) {}
+  constructor(private readonly httpService: HttpService) { }
 
   async createEvent(data: object, userId: string, userRole: string) {
     try {
@@ -103,8 +103,8 @@ export class EventService {
     }
   }
 
-  async cancel(id: string, userId: string, userRole: string){
-    try {        
+  async cancel(id: string, userId: string, userRole: string) {
+    try {
       const response = await firstValueFrom(
         this.httpService.delete(`${this.eventServiceUrl}/events/${id}/cancel`, {
           headers: {

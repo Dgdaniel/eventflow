@@ -15,9 +15,10 @@ import { CreateEventDto, UpdateEventDto } from '@app/common';
 
 @Controller('events')
 export class EventController {
-  constructor(private readonly eventService: EventService) {}
+  constructor(private readonly eventService: EventService) { }
 
   @Post()
+  @UseGuards(AuthGuard('jwt'))
   async create(
     @Body() createEventDto: CreateEventDto,
     @Request() req: { user: { userId: string; role?: string } },
@@ -45,6 +46,7 @@ export class EventController {
   }
 
   @Patch(':id/publish')
+  @UseGuards(AuthGuard('jwt'))
   async publish(
     @Param('id', ParseUUIDPipe) id: string,
     @Request() req: { user: { userId: string; role?: string } },

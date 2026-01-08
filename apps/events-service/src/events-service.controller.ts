@@ -2,7 +2,7 @@ import { Controller, Get, Param, Post, Body, Headers, Put, Delete, ParseUUIDPipe
 import { EventsServiceService } from './events-service.service';
 import { CreateEventDto, UpdateEventDto } from '@app/common';
 
-@Controller()
+@Controller('events')
 export class EventsServiceController {
   constructor(private readonly eventsServiceService: EventsServiceService) { }
 
@@ -29,25 +29,39 @@ export class EventsServiceController {
   }
 
   @Put(':id')
-  update(@Param('id', ParseUUIDPipe) id: string, @Body() updateEventDto: UpdateEventDto,
-    @Request() req: {user: {userId: string, role?: string}}) {
+  update(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() updateEventDto: UpdateEventDto,
+    @Headers('x-user-id') userId: string,
+    @Headers('x-user-role') userRole: string,
+  ) {
     return this.eventsServiceService.update(
-      id, 
+      id,
       updateEventDto,
-      req.user.userId,
-      req.user.role || "USER"
+      userId,
+      userRole || 'USER',
     );
   }
 
   @Post(':id/publish')
-  publish(@Param('id', ParseUUIDPipe) id: string,
-    @Request() req: {user: {userId: string, role?: string}}) {
-    return this.eventsServiceService.publishEvent(id, req.user.userId, req.user.role || "USER");
+  publish(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Headers('x-user-id') userId: string,
+    @Headers('x-user-role') userRole: string,
+  ) {
+    return this.eventsServiceService.publishEvent(
+      id,
+      userId,
+      userRole || 'USER',
+    );
   }
 
   @Delete(':id/cancel')
-  cancel(@Param('id', ParseUUIDPipe) id: string,
-    @Request() req: {user: {userId: string, role?: string}}) {
-    return this.eventsServiceService.cancel(id, req.user.userId, req.user.role || "USER");
+  cancel(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Headers('x-user-id') userId: string,
+    @Headers('x-user-role') userRole: string,
+  ) {
+    return this.eventsServiceService.cancel(id, userId, userRole || 'USER');
   }
 }
