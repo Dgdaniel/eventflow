@@ -75,20 +75,20 @@ services:
       timeout: 3s
       retries: 5
 
-  redis:
-    image: redis:7-alpine
-    container_name: eventflowapp-redis
-    ports:
-      - "10000:6379"
-    volumes:
-      - redis-data:/data
-    networks:
-      - kafka-net
-    healthcheck:
-      test: [ "CMD", "redis-cli", "ping" ]
-      interval: 5s
-      timeout: 3s
-      retries: 5
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: eventflowapp-redis
+  #   ports:
+  #     - "10000:6379"
+  #   volumes:
+  #     - redis-data:/data
+  #   networks:
+  #     - kafka-net
+  #   healthcheck:
+  #     test: [ "CMD", "redis-cli", "ping" ]
+  #     interval: 5s
+  #     timeout: 3s
+  #     retries: 5
 
   mailhog:
     image: mailhog/mailhog:latest
