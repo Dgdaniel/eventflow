@@ -5,7 +5,8 @@ import { users } from './user';
 export const ticketStatusEnum = pgEnum("ticket_status", [
     'PENDING',
     'CONFIRMED',
-    'CANCELED'
+    'CANCELED',
+    'CHECKED_IN'
 ])
 
 export const tickets = pgTable("tickets", {
