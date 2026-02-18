@@ -5,8 +5,4 @@ import { TicketsServiceService } from './tickets-service.service';
 export class TicketsServiceController {
   constructor(private readonly ticketsServiceService: TicketsServiceService) {}
 
-  @Get()
-  getHello(): string {
-    return this.ticketsServiceService.getHello();
-  }
 }
