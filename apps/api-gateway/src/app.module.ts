@@ -5,6 +5,7 @@ import { AuthModule } from './auth/auth.module';
 import { EventModule } from './events/event.module';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
+import { TicketsModule } from './tickets/tickets.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { PassportModule } from '@nestjs/passport';
     }),
     AuthModule,
     EventModule,
+    TicketsModule
   ],
   controllers: [AppController],
   providers: [AppService],
