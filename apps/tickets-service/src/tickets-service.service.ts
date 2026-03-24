@@ -11,6 +11,30 @@ import { timestamp } from 'drizzle-orm/gel-core';
 @Injectable()
 export class TicketsServiceService implements OnModuleInit {
 
+  async findOne(id: string, userId: string) {
+    const [foundTickets] = await this.dbService.db.select(
+      {
+        id: tickets.id,
+        ticketCode: tickets.ticketCode,
+        quantity: tickets.quantity,
+        totalPrice: tickets.totalPrice,
+        status: tickets.status,
+        purchasedAt: tickets.purchasedAt,
+        eventTitle: events.title,
+      }
+    )
+      .from(tickets)
+      .innerJoin(events, eq(tickets.eventId, events.id))
+      .where(eq(tickets.id, id))
+      .limit(1);
+
+    if (!foundTickets) {
+      throw new NotFoundException("Ticket not found")
+    }
+
+    return foundTickets;
+  }
+
   constructor(
     @Inject(KAFKA_SERVICE) private readonly kafkaClient: ClientKafka,
     private readonly dbService: DatabaseService,
