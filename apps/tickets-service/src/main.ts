@@ -6,7 +6,6 @@ import { SERVICE_PORT } from '@app/common';
 async function bootstrap() {
   const app = await NestFactory.create(TicketsServiceModule);
 
-
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -16,6 +15,8 @@ async function bootstrap() {
   );
   await app.listen(SERVICE_PORT.TICKETS_SERVICE);
 }
-console.log(`Tickets Service is running on port ${SERVICE_PORT.TICKETS_SERVICE}`);
+console.log(
+  `Tickets Service is running on port ${SERVICE_PORT.TICKETS_SERVICE}`,
+);
 
 bootstrap();

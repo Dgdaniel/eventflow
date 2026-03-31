@@ -1,15 +1,27 @@
-import { Controller, Get, Param, Post, Body, Headers, Put, Delete, ParseUUIDPipe, Request } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Post,
+  Body,
+  Headers,
+  Put,
+  Delete,
+  ParseUUIDPipe,
+  Request,
+} from '@nestjs/common';
 import { EventsServiceService } from './events-service.service';
 import { CreateEventDto, UpdateEventDto } from '@app/common';
 
 @Controller('events')
 export class EventsServiceController {
-  constructor(private readonly eventsServiceService: EventsServiceService) { }
-
+  constructor(private readonly eventsServiceService: EventsServiceService) {}
 
   @Post()
-  create(@Body() createEventDto: CreateEventDto,
-    @Headers('x-user-id') userId: string) {
+  create(
+    @Body() createEventDto: CreateEventDto,
+    @Headers('x-user-id') userId: string,
+  ) {
     return this.eventsServiceService.createEvent(createEventDto, userId);
   }
 

@@ -17,9 +17,9 @@ import { TicketsModule } from './tickets/tickets.module';
     }),
     AuthModule,
     EventModule,
-    TicketsModule
+    TicketsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}

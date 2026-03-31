@@ -11,6 +11,8 @@ describe('EventsServiceController', () => {
       providers: [EventsServiceService],
     }).compile();
 
-    eventsServiceController = app.get<EventsServiceController>(EventsServiceController);
+    eventsServiceController = app.get<EventsServiceController>(
+      EventsServiceController,
+    );
   });
 });

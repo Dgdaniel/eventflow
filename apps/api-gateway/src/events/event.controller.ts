@@ -15,7 +15,7 @@ import { CreateEventDto, UpdateEventDto } from '@app/common';
 
 @Controller('events')
 export class EventController {
-  constructor(private readonly eventService: EventService) { }
+  constructor(private readonly eventService: EventService) {}
 
   @Post()
   @UseGuards(AuthGuard('jwt'))

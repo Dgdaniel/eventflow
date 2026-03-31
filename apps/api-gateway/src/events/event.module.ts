@@ -5,7 +5,7 @@ import { EventController } from './event.controller';
 import { PassportModule } from '@nestjs/passport';
 
 @Module({
-  imports: [HttpModule, PassportModule.register({defaultStrategy : 'jwt'})],
+  imports: [HttpModule, PassportModule.register({ defaultStrategy: 'jwt' })],
   controllers: [EventController],
   providers: [EventService],
   exports: [EventService],

@@ -5,7 +5,7 @@ import { KafkaModule } from '@app/kafka';
 import { DatabaseModule } from '@app/database';
 
 @Module({
-  imports: [KafkaModule.register("events-service-group"), DatabaseModule],
+  imports: [KafkaModule.register('events-service-group'), DatabaseModule],
   controllers: [EventsServiceController],
   providers: [EventsServiceService],
 })
