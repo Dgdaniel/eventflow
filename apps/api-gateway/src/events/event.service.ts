@@ -9,7 +9,11 @@ export class EventService {
   private readonly eventServiceUrl = `http://localhost:${SERVICE_PORT.EVENTS_SERVICE}`;
   constructor(private readonly httpService: HttpService) {}
 
-  async createEvent(data: object, userId: string, userRole: string): Promise<unknown> {
+  async createEvent(
+    data: object,
+    userId: string,
+    userRole: string,
+  ): Promise<unknown> {
     try {
       const response = await firstValueFrom(
         this.httpService.post(`${this.eventServiceUrl}/events`, data, {
@@ -83,7 +87,11 @@ export class EventService {
     }
   }
 
-  async publishEvent(id: string, userId: string, userRole: string): Promise<unknown> {
+  async publishEvent(
+    id: string,
+    userId: string,
+    userRole: string,
+  ): Promise<unknown> {
     try {
       const response = await firstValueFrom(
         this.httpService.post(
