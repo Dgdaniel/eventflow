@@ -9,7 +9,7 @@ export class EventService {
   private readonly eventServiceUrl = `http://localhost:${SERVICE_PORT.EVENTS_SERVICE}`;
   constructor(private readonly httpService: HttpService) {}
 
-  async createEvent(data: object, userId: string, userRole: string) {
+  async createEvent(data: object, userId: string, userRole: string): Promise<unknown> {
     try {
       const response = await firstValueFrom(
         this.httpService.post(`${this.eventServiceUrl}/events`, data, {
@@ -19,24 +19,24 @@ export class EventService {
           },
         }),
       );
-      return response.data;
+      return response.data as unknown;
     } catch (error) {
       this.handleError(error);
     }
   }
 
-  async findAllEvents() {
+  async findAllEvents(): Promise<unknown> {
     try {
       const response = await firstValueFrom(
         this.httpService.get(`${this.eventServiceUrl}/events`),
       );
-      return response.data;
+      return response.data as unknown;
     } catch (error) {
       this.handleError(error);
     }
   }
 
-  async findMyEvents(userId: string) {
+  async findMyEvents(userId: string): Promise<unknown> {
     try {
       const response = await firstValueFrom(
         this.httpService.get(`${this.eventServiceUrl}/events/my-events`, {
@@ -45,18 +45,18 @@ export class EventService {
           },
         }),
       );
-      return response.data;
+      return response.data as unknown;
     } catch (error) {
       this.handleError(error);
     }
   }
 
-  async findOneEvent(id: string) {
+  async findOneEvent(id: string): Promise<unknown> {
     try {
       const response = await firstValueFrom(
         this.httpService.get(`${this.eventServiceUrl}/events/${id}`),
       );
-      return response.data;
+      return response.data as unknown;
     } catch (error) {
       this.handleError(error);
     }
@@ -67,7 +67,7 @@ export class EventService {
     data: object,
     userId: string,
     userRole: string,
-  ) {
+  ): Promise<unknown> {
     try {
       const response = await firstValueFrom(
         this.httpService.put(`${this.eventServiceUrl}/events/${id}`, data, {
@@ -77,13 +77,13 @@ export class EventService {
           },
         }),
       );
-      return response.data;
+      return response.data as unknown;
     } catch (error) {
       this.handleError(error);
     }
   }
 
-  async publishEvent(id: string, userId: string, userRole: string) {
+  async publishEvent(id: string, userId: string, userRole: string): Promise<unknown> {
     try {
       const response = await firstValueFrom(
         this.httpService.post(
@@ -97,13 +97,13 @@ export class EventService {
           },
         ),
       );
-      return response.data;
+      return response.data as unknown;
     } catch (error) {
       this.handleError(error);
     }
   }
 
-  async cancel(id: string, userId: string, userRole: string) {
+  async cancel(id: string, userId: string, userRole: string): Promise<unknown> {
     try {
       const response = await firstValueFrom(
         this.httpService.delete(`${this.eventServiceUrl}/events/${id}/cancel`, {
@@ -113,13 +113,13 @@ export class EventService {
           },
         }),
       );
-      return response.data;
+      return response.data as unknown;
     } catch (error) {
       this.handleError(error);
     }
   }
 
-  private handleError(error: unknown) {
+  private handleError(error: unknown): never {
     const err = error as {
       response?: { data: string | object; status: number };
     };

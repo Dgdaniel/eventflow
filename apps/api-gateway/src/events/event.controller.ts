@@ -22,7 +22,7 @@ export class EventController {
   async create(
     @Body() createEventDto: CreateEventDto,
     @Request() req: { user: { userId: string; role?: string } },
-  ) {
+  ): Promise<unknown> {
     return this.eventService.createEvent(
       createEventDto,
       req.user.userId,
@@ -36,7 +36,7 @@ export class EventController {
     @Param('id', ParseUUIDPipe) id: string,
     @Body() updateEventDto: UpdateEventDto,
     @Request() req: { user: { userId: string; role?: string } },
-  ) {
+  ): Promise<unknown> {
     return this.eventService.updateEvent(
       id,
       updateEventDto,
@@ -50,7 +50,7 @@ export class EventController {
   async publish(
     @Param('id', ParseUUIDPipe) id: string,
     @Request() req: { user: { userId: string; role?: string } },
-  ) {
+  ): Promise<unknown> {
     return this.eventService.publishEvent(
       id,
       req.user.userId,
@@ -63,7 +63,7 @@ export class EventController {
   async cancel(
     @Param('id', ParseUUIDPipe) id: string,
     @Request() req: { user: { userId: string; role?: string } },
-  ) {
+  ): Promise<unknown> {
     return this.eventService.cancel(
       id,
       req.user.userId,
@@ -72,7 +72,7 @@ export class EventController {
   }
 
   @Get()
-  async findAll() {
+  async findAll(): Promise<unknown> {
     return this.eventService.findAllEvents();
   }
 
@@ -80,7 +80,7 @@ export class EventController {
   @UseGuards(AuthGuard('jwt'))
   async findMyEvent(
     @Request() req: { user: { userId: string; role?: string } },
-  ) {
+  ): Promise<unknown> {
     return this.eventService.findMyEvents(req.user.userId);
   }
 }
