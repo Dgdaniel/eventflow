@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AuthServiceModule } from './auth-service.module';
 import { ValidationPipe } from '@nestjs/common';
-import { SERVICE_PORT, SERVICES } from '@app/common';
+import { SERVICE_PORT } from '@app/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AuthServiceModule);
