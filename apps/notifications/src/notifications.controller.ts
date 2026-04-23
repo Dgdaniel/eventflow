@@ -6,7 +6,6 @@ export class NotificationsController {
   constructor(private readonly notificationsService: NotificationsService) {}
 
   @Get()
-  getHello(): string {
-    return this.notificationsService.getHello();
+  getHello(){
   }
 }
