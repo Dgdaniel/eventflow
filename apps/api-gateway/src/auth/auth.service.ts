@@ -68,3 +68,4 @@ export class AuthService {
     throw new HttpException(error.message, 503);
   }
 }
+// $(this.data.Event_11woeyh.parameters.configuration.BASE_URL+ '/cons/create-demande?type_demandeur=' + this.data.Event_11woeyh.parameters.submissionData.data.type_demandeur)
