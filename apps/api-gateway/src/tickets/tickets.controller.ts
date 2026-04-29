@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Headers,
+  Logger,
   Param,
   ParseUUIDPipe,
   Post,
@@ -16,6 +17,7 @@ import { AuthGuard } from '@nestjs/passport';
 @Controller('tickets')
 @UseGuards(AuthGuard('jwt'))
 export class TicketController {
+  private logger = new Logger(TicketsService.name)
   constructor(private readonly ticketsService: TicketsService) {}
 
   @Post('purchase')
@@ -23,6 +25,7 @@ export class TicketController {
     @Body() purchaseDto: PurchaseTicketDto,
     @Request() req: { user: { userId: string; role?: string } },
   ) {
+    this.logger.log("request to purchqse avec DTO ", purchaseDto)
     return this.ticketsService.purchaseTicket(purchaseDto, req.user.userId);
   }
 

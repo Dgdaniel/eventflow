@@ -4,7 +4,7 @@ services:
     container_name: zookeeper
     platform: linux/amd64
     ports:
-      - "21819:2181"
+      - "2182:2181"
     volumes:
       - zookeeper-data:/opt/zookeeper-3.4.13/data
       - zookeeper-log:/opt/zookeeper-3.4.13/logs
@@ -60,7 +60,7 @@ services:
     image: postgres:17-alpine
     container_name: eventflowapp-postgres
     ports:
-      - "12500:5432"
+      - "5433:5432"
     environment:
       POSTGRES_USER: eventflowapp
       POSTGRES_PASSWORD: eventflowapp
@@ -79,7 +79,7 @@ services:
   #   image: redis:7-alpine
   #   container_name: eventflowapp-redis
   #   ports:
-  #     - "10000:6379"
+  #     - "6380:6379"
   #   volumes:
   #     - redis-data:/data
   #   networks:
@@ -94,8 +94,8 @@ services:
     image: mailhog/mailhog:latest
     container_name: eventflowapp-mailhog
     ports:
-      - "10250:1025"
-      - "10251:8025"
+      - "1026:1025"
+      - "8026:8025"
     volumes:
       - mailhog-data:/data
     networks:
