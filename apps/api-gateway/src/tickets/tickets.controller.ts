@@ -25,7 +25,7 @@ export class TicketController {
     @Body() purchaseDto: PurchaseTicketDto,
     @Request() req: { user: { userId: string; role?: string } },
   ) {
-    this.logger.log("request to purchqse avec DTO ", purchaseDto)
+    this.logger.log('request to purchqse avec DTO ', purchaseDto);
     return this.ticketsService.purchaseTicket(purchaseDto, req.user.userId);
   }
 
